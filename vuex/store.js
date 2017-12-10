@@ -19,16 +19,35 @@ const mutations = {
             }
 
             state.messages.push(newMessage);
+
+            // TODO: Make call to chatbot endpoint here
+            let req = new XMLHttpRequest();
+            // let url = "https://jsonplaceholder.typicode.com"
+            let url = "http://localhost:8000/chat";
+
+            req.open('POST', url);
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            req.onload = function() {
+                if (req.status == 200) {
+                    state.messages.push({
+                        message: req.response,
+                        origin: "rcvd"
+                    })
+                }
+                else {
+                    state.messages.push({
+                        message: "I'm sorry. I don't understand you.",
+                        origin: "rcvd"
+                    })
+                }
+            };
+
+            req.send("input=" + state.activeText);
+
             state.activeText = "";
             state.placeholder = "Message";
 
-            // TODO: Make call to chatbot endpoint here
-            setTimeout(function () {
-                state.messages.push({
-                    message: "You are a wonderful person.",
-                    origin: "rcvd"
-                })
-            }, 1000);
         }
 
         e.preventDefault();
