@@ -36,6 +36,10 @@
     min-height: 100vh;
 }
 
+.msg-container {
+    width: 100%;
+}
+
 .sentMsg {
     background: #1A87F8;
     color: white;
@@ -44,8 +48,9 @@
     max-width: 70%;
     float: right;
     margin: 0px 20px 20px 20px;
-    padding: 10px 10px 0px 10px;
+    padding: 10px 15px 0px 15px;
     border-radius: 12px;
+    clear: both;
 }
 
 .rcvdMsg {
@@ -55,6 +60,7 @@
     font-weight: 400;
     float: left;
     margin: 0px 20px 20px 20px;
-    padding: 10px 10px 0px 10px;
+    padding: 10px 15px 0px 15px;
     border-radius: 12px;
+    clear: both;
 }

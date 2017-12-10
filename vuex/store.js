@@ -4,52 +4,39 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-    inspImg: "../assets/" + new Date().getDate() + ".jpg"
-    // notes: [],
-    // activeNote: {}
+    inspImg: "../assets/" + new Date().getDate() + ".jpg",
+    messages: [],
+    activeText: "",
+    placeholder: "What's up, Sydney?"
 }
 
 const mutations = {
-    ASK_QUESTION(state) {
-        // let url = "https://www.cleverbot.com/getreply";
-        // let key = "CC5ryIKC50H5u8qWzvf7myIGsKw";
-        // let input = encodeURIComponent ("How are you?");
+    ASK_QUESTION(state, e) {
+        if (state.activeText !== "") {
+            const newMessage = {
+                message: state.activeText,
+                origin: "sent"
+            }
 
-        // function ProcessReply (data) {
-        //     if (data.error) console.log ('Error: ' + data.error);
-        //     else alert ('Reply: ' + data.output);
-        // }
+            state.messages.push(newMessage);
+            state.activeText = "";
+            state.placeholder = "Message";
 
-        // script_element = document.createElement('script'); //create new script element
-        // script_element.src = url + "?input=" + input + '&key=' + key + '&callback=ProcessReply';
-        // document.getElementsByTagName ('head')[0].appendChild(script_element); //append to page, which executes it
+            // TODO: Make call to chatbot endpoint here
+            setTimeout(function () {
+                state.messages.push({
+                    message: "You are a wonderful person.",
+                    origin: "rcvd"
+                })
+            }, 1000);
+        }
+
+        e.preventDefault();
+
+    },
+    UPDATE_ACTIVE_TEXT(state, text) {
+        state.activeText = text;
     }
-    //
-    // ADD_NOTE (state) {
-    //   const newNote = {
-    //     text: 'New note',
-    //     favorite: false
-    //   }
-    //   state.notes.push(newNote)
-    //   state.activeNote = newNote
-    // },
-    //
-    // EDIT_NOTE (state, text) {
-    //   state.activeNote.text = text
-    // },
-    //
-    // DELETE_NOTE (state) {
-    //   state.notes.$remove(state.activeNote)
-    //   state.activeNote = state.notes[0]
-    // },
-    //
-    // TOGGLE_FAVORITE (state) {
-    //   state.activeNote.favorite = !state.activeNote.favorite
-    // },
-    //
-    // SET_ACTIVE_NOTE (state, note) {
-    //   state.activeNote = note
-    // }
 }
 
 export default new Vuex.Store({
