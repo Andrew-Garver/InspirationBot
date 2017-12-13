@@ -20,10 +20,8 @@ const mutations = {
 
             state.messages.push(newMessage);
 
-            // TODO: Make call to chatbot endpoint here
             let req = new XMLHttpRequest();
-            // let url = "https://jsonplaceholder.typicode.com"
-            let url = "http://localhost:8000/chat";
+            let url = "https://christmas-chatbot.herokuapp.com/chat";
 
             req.open('POST', url);
             req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
